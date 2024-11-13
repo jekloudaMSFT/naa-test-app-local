@@ -1,0 +1,47 @@
+{
+  "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.15/MicrosoftTeams.schema.json",
+  "manifestVersion": "1.15",
+  "version": "1.0.0",
+  "id": "e5881c79-58dd-47af-889b-726eaeb51bc6",
+  "packageName": "com.microsoft.teams.extension",
+  "developer": {
+      "name": "Teams App, Inc.",
+      "websiteUrl": "https://local.teams.office.com:4000",
+      "privacyUrl": "https://local.teams.office.com:4000",
+      "termsOfUseUrl": "https://local.teams.office.com:4000"
+  },
+  "icons": {
+      "color": "color.png",
+      "outline": "outline.png"
+  },
+  "name": {
+      "short": "naa-test-app-local",
+      "full": "Full name for naa-test-app"
+  },
+  "description": {
+      "short": "Short description of naa-test-app",
+      "full": "Full description of naa-test-app"
+  },
+  "accentColor": "#FFFFFF",
+  "bots": [],
+  "composeExtensions": [],
+  "configurableTabs": [],
+  "staticTabs": [
+      {
+          "entityId": "index",
+          "name": "Personal Tab",
+          "contentUrl": "https://local.teams.office.com:4000",
+          "websiteUrl": "https://local.teams.office.com:4000",
+          "scopes": [
+              "personal"
+          ]
+      }
+  ],
+  "permissions": [
+      "identity",
+      "messageTeamMembers"
+  ],
+  "validDomains": [
+      "local.teams.office.com:4000"
+  ]
+}
