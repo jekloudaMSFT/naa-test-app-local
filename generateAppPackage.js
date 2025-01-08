@@ -1,4 +1,7 @@
-{
+const archiver = require('archiver');
+const fs = require('fs');
+
+const manifest = `{
   "$schema": "https://developer.microsoft.com/en-us/json-schemas/teams/v1.15/MicrosoftTeams.schema.json",
   "manifestVersion": "1.15",
   "version": "1.0.0",
@@ -6,9 +9,9 @@
   "packageName": "com.microsoft.teams.extension",
   "developer": {
       "name": "Teams App, Inc.",
-      "websiteUrl": "https://local.teams.office.com:4000",
-      "privacyUrl": "https://local.teams.office.com:4000",
-      "termsOfUseUrl": "https://local.teams.office.com:4000"
+      "websiteUrl": "${process.env.APP_URL}",
+      "privacyUrl": "${process.env.APP_URL}",
+      "termsOfUseUrl": "${process.env.APP_URL}"
   },
   "icons": {
       "color": "color.png",
@@ -30,8 +33,8 @@
       {
           "entityId": "index",
           "name": "Personal Tab",
-          "contentUrl": "https://local.teams.office.com:4000",
-          "websiteUrl": "https://local.teams.office.com:4000",
+          "contentUrl": "${process.env.APP_URL}",
+          "websiteUrl": "${process.env.APP_URL}",
           "scopes": [
               "personal"
           ]
@@ -42,6 +45,27 @@
       "messageTeamMembers"
   ],
   "validDomains": [
-      "local.teams.office.com:4000"
+      "${process.env.APP_DOMAIN}"
   ]
-}
+}`;
+
+fs.writeFileSync('appPackage/manifest.json', manifest);
+
+var output = fs.createWriteStream('appPackage.zip');
+var archive = archiver('zip');
+
+output.on('close', function () {
+    console.log(archive.pointer() + ' total bytes');
+    console.log('archiver has been finalized and the output file descriptor has closed.');
+});
+
+archive.on('error', function(err){
+    throw err;
+});
+
+archive.pipe(output);
+
+// append files from a sub-directory, putting its contents at the root of archive
+archive.directory("appPackage", false);
+
+archive.finalize();

@@ -1,6 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
+const { EnvironmentPlugin } = require('webpack');
 
 module.exports = {
   entry: './src/index.tsx',
@@ -8,6 +9,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       template: 'src/index.html',
     }),
+    new EnvironmentPlugin([
+      'CLIENT_ID',
+      'AUTHORITY',
+      'SSL_KEY_FILE',
+      'SSL_CERT_FILE'
+    ])
   ],
   module: {
     rules: [

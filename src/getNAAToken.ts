@@ -9,8 +9,8 @@ import { app } from "@microsoft/teams-js";
 
 const msalConfig: Configuration = {
   auth: {
-    clientId: "e7312545-2a09-4b59-af71-b92baa952ad8",
-    authority: "https://login.microsoftonline.com/46e59dd7-fe9c-4b20-bcca-bca6dab68e43",
+    clientId: process.env.CLIENT_ID || "",
+    authority: process.env.AUTHORITY || "",
   },
   system: {
     loggerOptions: {

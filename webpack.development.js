@@ -2,15 +2,13 @@ const { merge } = require('webpack-merge');
 const common = require('./webpack.common.js');
 const fs = require('fs');
 
-let useLocalCert = false;
-
-try {
-  fs.accessSync('local.teams.office.com-key.pem', fs.constants.F_OK);
-  fs.accessSync('local.teams.office.com.pem', fs.constants.F_OK);
-  useLocalCert = true;
-} catch (err) {
-  console.log(err);
-  console.log('Certificates not found, using default https settings...');
+const keyPath = process.env.SSL_KEY_FILE;
+const certPath = process.env.SSL_CERT_FILE;
+const useLocalCert = keyPath && certPath && fs.existsSync(keyPath) && fs.existsSync(certPath);
+if (useLocalCert) {
+  console.log('Using SSL with the following files:');
+  console.log('SSL_KEY_FILE:', keyPath);
+  console.log('SSL_CERT_FILE:', certPath);
 }
 
 module.exports = merge(common, {
@@ -24,13 +22,12 @@ module.exports = merge(common, {
     compress: true,
     open: true,
     static: './build',
-    host: 'local.teams.office.com',
     port: 4000,
     server: useLocalCert
       ? {type: 'https',
         options: {
-          key: fs.readFileSync('local.teams.office.com-key.pem'),
-          cert: fs.readFileSync('local.teams.office.com.pem'),
+          key: fs.readFileSync(keyPath),
+          cert: fs.readFileSync(certPath),
         }
       }
       : 'https'
