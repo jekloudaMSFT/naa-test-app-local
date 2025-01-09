@@ -40,7 +40,7 @@ This will create the app registration. Note the application ID under "Applicatio
 
 ### 3. Update the .env file with your app information.
 
-In the .env file at the root of this project, replace the CLIENT_ID value with the application ID you noted from step 2, the AUTHORITY value with "https://login.microsoftonline.com/common" or "https://login.microsoftonline.com/<TENANT-ID>" where <TENANT-ID> is the tenant ID you noted from step 2, the APP_URL value with your tunnel endpoint (e.g. `https://my-tunnel.devtunnels.ms:4000/`), and APP_DOMAIN with your tunnel domain (e.g. `my-tunnel.devtunnels.ms:4000/`).
+In the .env file at the root of this project, replace the CLIENT_ID value with the application ID you noted from step 2, the AUTHORITY value with "https://login.microsoftonline.com/common" or "https://login.microsoftonline.com/\<TENANT-ID\>" where \<TENANT-ID\> is the tenant ID you noted from step 2, the APP_URL value with your tunnel endpoint (e.g. `https://my-tunnel.devtunnels.ms:4000/`), and APP_DOMAIN with your tunnel domain (e.g. `my-tunnel.devtunnels.ms:4000/`).
 
 Optionally, you may provide SSL key and certificate files for Webpack by specifying paths to these files in SSL_KEY_FILE and SSL_CRT_FILE respectively, but this is not required for testing.
 
